@@ -1,3 +1,4 @@
+//labtask1
 import java.util.*;
 public class LabTask1{
   public static void main(String []args){
@@ -42,5 +43,172 @@ public class LabTask1{
     }
   }
 }
-          
+
+//labtask2
+import java.util.Arrays;
+public class LabTask2{
+  public static void main(String []args){
+    int [][] matrix = {{1,3,1},{6,4,2},{5,1,7},{9,3,3},{8,5,4}};
+    int row = matrix.length;
+    int col = matrix[0].length;
+    int [] arr1 = new int[col];
+    for(int i=0; i<col; i++){
+      int temp = 0;
+      for(int j=0; j<row; j++){
+        temp += matrix[j][i];
+      }
+      arr1[i] = temp;
+    }
+    int [] arr2 = new int [col-1];
+    for(int i=0; i<arr2.length; i++){
+      arr2[i] = arr1[i+1]-arr1[i];
+    }
+    System.out.println(Arrays.toString(arr2));
+  }
+}
+      
+//assignment task1
+public static Integer rowRotation(Integer examWeek, String[][] matrix ){
+      int n = matrix.length;
+      int k = (examWeek%n)-1;
+      int i = 0;
+      int j = matrix.length-1;
+      while(i<j){
+        String [] temp = matrix[i];
+        matrix[i] = matrix[j];
+        matrix[j] = temp;
+        i++;
+        j--;
+      }
+      i = 0;
+      j = k-1;
+      while(i<j){
+        String [] temp = matrix[i];
+        matrix[i] = matrix[j];
+        matrix[j] = temp;
+        i++;
+        j--;
+      }
+      i = k+1; 
+      j = n-1;
+      while(i<j){
+        String [] temp = matrix[i];
+        matrix[i] = matrix[j];
+        matrix[j] = temp;
+        i++;
+        j--;
+      }
+      int rowNum = 0;
+      for(int row=0; row<matrix.length; row++){
+        for(int col=0; col<matrix[0].length; col++){
+          if(matrix[row][col].equals("AA")){
+            rowNum = row+1;
+          }
+        }
+      }
+      return rowNum;
+    }
+}
+
+//assignment task2
+public static Integer[][] compressMatrix(Integer[][] matrix){
+      int row = matrix.length;
+      int col = matrix[0].length;
+      int r = row/2;
+      int c = col/2;
+      int idx1 = 0, idx2 = 0;
+      Integer [][] compressedMatrix = new Integer[r][c];
+      for(int i=0; i<row; i+=2){
+        for(int j=0; j<col; j+=2){
+          int sum = matrix[i][j]+matrix[i+1][j]+matrix[i][j+1]+matrix[i+1][j+1];
+          compressedMatrix[idx1][idx2]=sum;
+          idx2++;
+        }
+        idx1++;
+        idx2 = 0;
+      }
+      return compressedMatrix;
+    }
+}
+
+//assignment task3
+public static void playGame(Integer[][] arena){
+      int row = arena.length;
+      int col = arena[0].length;
+      int pts = 0;
+      for(int i=0; i<row; i++){
+        for(int j=0; j<col; j++){
+          if(arena[i][j]!=0 && arena[i][j]%50==0){
+            if(i>0 && arena[i-1][j]==2){
+              pts+=2;
+            }
+            if(i<row-1 && arena[i+1][j]==2){
+              pts+=2;
+            }
+            if(j>0 && arena[i][j-1]==2){
+              pts+=2;
+            }
+            if(j<col-1 && arena[i][j+1]==2){
+              pts+=2;
+            }
+          }
+        }
+      }
+      if(pts>=10){
+        System.out.println("Points gained: "+pts+". Your team has survived the game.");
+      }
+      else{
+        System.out.println("Points gained: "+pts+". Your team is out.");
+      }
+    }
+}
+
+//assignment task4
+ public static void rotateSecret( Character[][] board ){ 
+        int row = board.length;
+        int col = board[0].length;
+        int l = row/2;
+        int n = 1;
+        Character temp1 = null, temp2 = null;       
+        while(n <= l){
+           int s = row/2 - n;
+           int e = s + 2*n - 1;
+           for(int k = 1; k <= n;k++ ){ 
+            temp1 = board[s][s];
+            for(int i = s; i < e; i++){
+             temp2 = board[s][i+1];
+             board[s][i+1] = temp1;
+             temp1 = temp2;
+            }
+
+           for(int i = s; i < e; i++){
+            temp2 = board[i+1][e];
+            board[i+1][e] = temp1;
+            temp1 = temp2;
+        }
+
+        for(int i = e; i > s; i--){
+           temp2 = board[e][i-1];
+           board[e][i-1] = temp1;
+           temp1 = temp2;
+        }
+
+                for(int i = e; i > s; i--){
+                    temp2 = board[i-1][s];
+                    board[i-1][s] = temp1;
+                    temp1 = temp2;
+                    }
+           }
+         n++;
+        }
+        
+            for(int i =0; i<row; i++){
+                for(int j = 0; j<col; j++){
+                    System.out.print(board[i][j]);
+                }
+        }
+        System.out.println();
+    }
+   }
+
         
