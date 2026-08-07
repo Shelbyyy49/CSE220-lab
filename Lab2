@@ -1,0 +1,198 @@
+//labtask1
+public class LabTask1 {
+    public static Boolean assembleCongaLine(Node head){ 
+      if(head==null || head.next==null){
+        return true;
+      }
+      Node cur = head;
+      while(cur.next!=null){
+        Integer val1 = (Integer)cur.elem;
+        Integer val2 = (Integer)cur.next.elem;
+        if(val1>val2){
+          return false;
+        }
+        cur = cur.next;
+      }
+      return true;
+    }
+
+//labtask2
+public class LabTask2 {
+    public static Node wordDecoder( Node head ){
+        Node current = head;
+        int count = 0;
+        while(current!=null){
+          count++;
+          current = current.next;
+        }
+        int l = 13%count;
+        int idx = 0;
+        Node prev = null;
+        current = head;
+        Node dumdum = new Node(null);
+        while(current!=null){
+          if(idx%l==0 && idx!=0){
+            Node newNode = new Node(current.elem);
+            newNode.next = prev;
+            prev = newNode;
+          }
+          idx++;
+          current = current.next;
+        }
+        dumdum.next = prev;
+        return dumdum;
+    }
+
+//assignment task1
+public class AssignmentTask1 {
+    public static String checkSimilar( Node building1, Node building2 ){
+      Node cur1 = building1;
+      Node cur2 = building2;
+      while(cur1!=null && cur2!=null){
+        if(cur1.elem!=cur2.elem){
+          return "Not Similar";
+        }
+        cur1 = cur1.next;
+        cur2 = cur2.next;
+      }
+      if(cur1==null && cur2==null){
+        return "Similar";
+      }
+      else{
+        return "Not Similar";
+      }
+    }
+
+//assignment task2
+public class AssignmentTask2{
+    public static Node organizeBooks(Node head, Integer[] popularity) {
+      int n = popularity.length;
+      for(int i=0; i<n; i++){
+        Node current = head;
+        Node newNode = current.next;
+        for(int j=0; j<n-i-1; j++){
+          if(popularity[j]<popularity[j+1]){
+            int temp1 = popularity[j];
+            popularity[j] = popularity[j+1];
+            popularity[j+1] = temp1;
+            Object temp2 = current.elem;
+            current.elem = newNode.elem;
+            newNode.elem = temp2;
+          }
+          current = current.next;
+          newNode = newNode.next;
+        }
+      }
+      return head;
+    }
+
+//assignment task3
+public static Node alternateMerge( Node head1, Node head2 ){
+      Node t1 = head1;
+      Node t2 = head2;
+      while(t1!=null && t2!=null){
+        Node front1 = t1.next;
+        t1.next = t2;
+        Node front2 = t2.next;
+        t2.next = front1;
+        t1 = front1;
+        t2 = front2;
+      }
+      return head1;
+    }
+
+//assignment task4
+public static Node idGenerator(Node head1, Node head2, Node head3) {
+      Node cur1 = head1;
+      Node prev = null;
+      while(cur1!=null){
+        Node front = cur1.next;
+        cur1.next = prev;
+        prev = cur1;
+        cur1 = front;
+      }
+      Node dumdum = new Node(null);
+      Node temp = dumdum;
+      Node cur2 = head2;
+      Node cur3 = head3;
+      while(cur2!=null && cur3!=null){
+        Node newNode = new Node(((Integer)cur2.elem+(Integer)cur3.elem)%10);
+        temp.next = newNode;
+        temp = newNode;
+        cur2 = cur2.next;
+        cur3 = cur3.next;
+      }
+      Node current = prev;
+      while(current.next!=null){
+        current = current.next;
+      }
+      current.next = dumdum.next;
+      return prev;
+    }
+
+//assignment task5
+public static void sumOddAppend(Node dh) {
+      int sum = 0;
+      Node current = dh.next;
+      Node build = dh;
+      while(current!=dh){
+        if((Integer)current.elem%2==1){
+          sum+=(Integer)current.elem;
+          build.next = current.next;
+          current = current.next;
+        }
+        else{
+          build = current;
+          current = current.next;
+        }
+      }
+      Node newNode = new Node(sum);
+      build.next = newNode;
+      newNode.next = dh;    
+    }
+
+//assignment task6
+public static void pairJoin(DNode dh1, DNode dh2) {
+        DNode cur1 = dh1.next;
+        DNode cur2 = dh2.next;
+        DNode last = dh1;
+        while(cur1!=null){
+          DNode temp1 = cur1.next;
+          DNode temp2 = cur2.next;
+          cur1.next = cur2;
+          cur2.prev = cur1;
+          cur2.next = temp1;
+          if(temp1!=null){
+            temp1.prev = cur2;
+          }
+          last = cur2;
+          cur1 = temp1;
+          cur2 = temp2;
+        }
+        last.next = dh1;
+        dh1.prev = last;
+    }
+
+//assignment task7
+public static void rangeMove(DNode dh, int start, int end) {
+        int count = 0;
+        DNode current = dh.next;
+        while(current!=dh){
+          count++;
+          current = current.next;
+        }
+        current = dh.next;
+        for(int i=0; i<count; i++){
+          DNode temp = current.next;
+          if((Integer)current.elem>=start && (Integer)current.elem<=end){
+            current.prev.next = current.next;
+            current.next.prev = current.prev;
+            DNode tail = dh.prev;
+            tail.next = current;
+            current.prev = tail;
+            current.next = dh;
+            dh.prev = current;
+          }
+          current = temp;
+        }
+    }
